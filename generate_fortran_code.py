@@ -14,24 +14,28 @@ fortran_tendencies, fortran_jacobian = model_definition.compute_tendencies(langu
 # writing to file
 fortran_file_part1 = """MODULE var
 
-  REAL(KIND=8) :: n, r, beta, x0, x1, x2, x3, x4, x5, x6, x7, x8, x9
-  REAL(KIND=8) :: sq2, pi, tdel
+  REAL(KIND=8) :: n, r, beta
+"""
+
+fortran_file_part1 += "\n  REAL(KIND=8) :: "
+for i in range(model_definition.ndim):  # must still threat case > 10
+    fortran_file_part1 += "x"+str(i)
+fortran_file_part1 += "\n"
+
+fortran_file_part1 += """  REAL(KIND=8) :: sq2, pi, tdel
   
   parameter(n = 0.20D0)
   parameter(r = 0.010D0)
   parameter(beta = 1.026671749185127D0)
 ! chi = (0.0 0.1 0.0 0.0 0.1 0.0 0.0 0.0 0.0 0.0)
-  parameter(x0 = 0.D0)
-  parameter(x1 = 0.10D0)
-  parameter(x2 = 0.D0)
-  parameter(x3 = 0.D0)
-  parameter(x4 = 0.10D0)
-  parameter(x5 = 0.D0)
-  parameter(X6 = 0.D0)
-  parameter(x7 = 0.D0)
-  parameter(x8 = 0.D0)
-  parameter(x9 = 0.D0)
+! Model coming from Python: chi_{i} <---> x{i-1}
+"""
 
+fortran_file_part1 += "\n"
+for i in range(model_definition.ndim):  # must still threat case > 10
+    fortran_file_part1 += f"  parameter(x{i} = 0.D0)\n"
+
+fortran_file_part1 +="""
   parameter(pi = DACOS(-1.D0))
   parameter(sq2 = SQRT(2.D0))
   parameter(tdel = 0.0001D0)
@@ -45,7 +49,6 @@ IMPLICIT NONE
 
 
 !-------------------------------------------------------------------------------------------------------|
-!  15/03/2026. J. DEMAEYER.                                                                             |
 !                                                                                                       |
 !  HEUN INTEGRATION OF A FORCING (MODEL)                                                                |
 !                                                                                                       |
