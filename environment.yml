@@ -5,6 +5,7 @@ dependencies:
   - python=3.12
   - pip
   - pip:
-      - layercake-model 
+      - layercake-model
+      - qgs
 
 
