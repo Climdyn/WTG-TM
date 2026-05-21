@@ -68,13 +68,13 @@ def define_model(nx, ny):
     ######################
 
     parameters = [n]
-    atmospheric_basis = contiguous_channel_basis(nx, ny, parameters, first_y_mode='cos')
+    atmospheric_basis = contiguous_channel_basis(nx, ny, parameters)
 
     # coordinates
     x = atmospheric_basis.coordinate_system.coordinates_symbol_as_list[0]
     y = atmospheric_basis.coordinate_system.coordinates_symbol_as_list[1]
 
-    # creating a inner product definition with an optimizer for trigonometric functions
+    # creating an inner product definition with an optimizer for trigonometric functions
     inner_products_definition = StandardSymbolicInnerProductDefinition(coordinate_system=atmospheric_basis.coordinate_system,
                                                                        optimizer='trig', kwargs={'conds': 'none'})
 
