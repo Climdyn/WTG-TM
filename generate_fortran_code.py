@@ -60,7 +60,7 @@ MODULE var
     fortran_file_part1 +="""
   parameter(pi = DACOS(-1.D0))
   parameter(sq2 = SQRT(2.D0))
-  parameter(tdel = 0.0001D0)                  !  time step for the integration
+  parameter(tdel = 0.001D0)                   !  time step for the integration
       
 END MODULE var
   
