@@ -42,7 +42,7 @@ def define_model(nx, ny):
 
     # Domain aspect ratio
     n_symbol = Symbol('n')
-    n = Parameter(1.3, symbol=n_symbol)
+    n = Parameter(0.2, symbol=n_symbol)
 
     # Meridional gradient of the Coriolis parameter at phi_0
     beta_symbol = Symbol(u'β')
@@ -61,8 +61,8 @@ def define_model(nx, ny):
     g = Parameter(9.81, symbol=g_symbol, units='[m][s^-2]')
 
     # Forcing parameters (dimensionless for now)
-    Ap = Parameter(1., symbol=Symbol("A'"))
-    Bp = Parameter(1., symbol=Symbol("B'"))
+    Ap = Parameter(0.165, symbol=Symbol("A'"))
+    Bp = Parameter(0.165, symbol=Symbol("B'"))
 
     # Defining the domain
     ######################
@@ -151,7 +151,6 @@ def define_model(nx, ny):
 
     layer = Layer()
     layer.add_equation(tropical_equation)
-
 
     # --------------------------------
     #

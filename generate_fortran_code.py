@@ -14,6 +14,7 @@ from model_definition import define_model
 # 'Safe importing of main module' section for more details.
 if __name__ == "__main__":
 
+    print('Creating the model...')
     # constructing the model
     model_definition = define_model(2, 2)
 
@@ -23,7 +24,9 @@ if __name__ == "__main__":
     # generating the tendencies in Fortran format
     language_translations = {'β': 'beta', 'sqrt(2)': 'sq2', 'χ_': 'x'}
     fortran_tendencies, fortran_jacobian = model_definition.compute_tendencies(language='fortran', lang_translation=language_translations)
+    print('Done.')
 
+    print('Writing to file...')
     # writing to file
     fortran_file_part1 = """
 !-------------------------------------------------------------------------------------------------------|
