@@ -75,8 +75,8 @@ if __name__ == "__main__":
     plt.xlim(x_pos[0]-1., x_pos[-1]+1.)
     plt.ylim(np.min(mean_exp)-0.1, np.max(mean_exp)+0.1)
 
-    plt.ylabel("Lyapunov exponent [day$^-1$]")
+    plt.ylabel("Lyapunov exponent [day$^{-1}$]")
     plt.xlabel("Index of the Lyapunov exponent")
 
-    plt.show(block=False)
+    plt.show()
 
