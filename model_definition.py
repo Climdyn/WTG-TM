@@ -22,7 +22,7 @@ from layercake.arithmetic.terms.gradient import vorticity_gradients_product
 from layercake.arithmetic.terms.operations import ProductOfTerms
 
 
-def define_model(nx, ny):
+def define_model(nx, ny, chi=0.07):
     """Construct the WTG-TN model using LayerCake.
 
     Parameters
@@ -31,6 +31,8 @@ def define_model(nx, ny):
         The truncation of the model basis in the zonal x direction.
     ny: int
         The truncation of the model basis in the meridional y direction.
+    chi: float, optional
+        The non-dimensional value of the WTG forcing chi_2 and chi_5 components.
     """
 
     # Setting some parameters
@@ -61,8 +63,8 @@ def define_model(nx, ny):
     g = Parameter(9.81, symbol=g_symbol, units='[m][s^-2]')
 
     # Forcing parameters (dimensionless for now)
-    Ap = Parameter(0.165, symbol=Symbol("A'"))
-    Bp = Parameter(0.165, symbol=Symbol("B'"))
+    Ap = Parameter(3*np.pi*chi/4, symbol=Symbol("A'"))
+    Bp = Parameter(3*np.pi*chi/4, symbol=Symbol("B'"))
 
     # Defining the domain
     ######################
@@ -162,3 +164,4 @@ def define_model(nx, ny):
     cake.add_layer(layer)
 
     return cake
+
