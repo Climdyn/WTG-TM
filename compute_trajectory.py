@@ -1,8 +1,9 @@
 
 ##############################################################################################
 #
-# This script compute the Lyapunov spectrum of the Weak Temperature Gradient (WTG) tropical
-# model using the LayerCake and qgs libraries
+# This script compute a trajectory of the Weak Temperature Gradient (WTG) tropical
+# model using the LayerCake and qgs libraries.
+# Optionally it can also generate a movie.
 #
 ##############################################################################################
 
@@ -12,7 +13,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from qgs.integrators.integrator import RungeKuttaIntegrator
-from qgs.toolbox.lyapunov import LyapunovsEstimator
+
+video = True
 
 # Guarding the main script to deal with multiprocessing import issue
 # in case the start method is 'spawn' or 'forkserver'.
@@ -40,43 +42,37 @@ if __name__ == "__main__":
     ic = np.random.rand(model_definition.ndim)*0.001
     dt = 0.01  # timestep
     integrator.integrate(0., 200000., dt, ic=ic, write_steps=0)
-    time, ic = integrator.get_trajectories()
+    _, ic = integrator.get_trajectories()
     print('Done.')
 
-    # making the Lyapunov spectrum estimation
-    lvint = LyapunovsEstimator()
-
-    print('Computing the Lyapunov spectrum...')
-    lvint.set_func(f, Df)
-    lvint.compute_lyapunovs(0., 10000., 20000., 0.01, 0.01, ic, write_steps=10)
-    btl, btraj, bexp, bvec = lvint.get_lyapunovs()
+    print('Integrating to get a trajectory on the attractor...')
+    # integrating to get a first initial condition on the attractor
+    integrator.integrate(0., 20000., dt, ic=ic, write_steps=10)
+    time, trajectory = integrator.get_trajectories()
+    data = np.concatenate((27998 * time[np.newaxis, ...] / (24 * 3600), trajectory))
+    np.savetxt('WTG_TM_trajectory.dat', data.T)
     print('Done.')
 
-    # plotting the results
+    if video:
 
-    # trajectories
-    plt.figure(figsize=(10, 8))
+        # Domain specification
+        # Geometry / modes
+        n = 0.20
+        xmax = 2 * np.pi / n
 
-    plt.plot(btl*27998/(24*3600), btraj[:5].T)
-    plt.xlabel('time [day]')
-    plt.ylabel('trajectories')
+        # Grid
+        nx = 31
+        ny = 21
+        x = np.linspace(0, xmax, nx)
+        y = np.linspace(-np.pi / 2, np.pi / 2, ny)
+        X, Y = np.meshgrid(x, y)
 
-    plt.figure(figsize=(15, 4))
+        # Basis function specification
+        basis = model_definition.layers[0].equations[0].terms[2].field.basis
+        blist = basis.num_functions()
+        dblist = basis.directional_derivative()
 
-    mean_exp = np.mean(bexp, axis=-1)*(24*3600)/27998
 
-    x_pos = np.arange(1., model_definition.ndim+1, 1)
 
-    plt.plot(x_pos, mean_exp)
 
-    plt.xticks(x_pos, map(str, range(1, model_definition.ndim+1, 1)))
-    plt.axhline(ls='--', color='k', lw=0.75)
-
-    plt.xlim(x_pos[0]-1., x_pos[-1]+1.)
-    plt.ylim(np.min(mean_exp)-0.1, np.max(mean_exp)+0.1)
-
-    plt.ylabel("Lyapunov exponent [day$^{-1}$]")
-    plt.xlabel("Index of the Lyapunov exponent")
-
-    plt.show()
 
