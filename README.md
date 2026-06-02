@@ -39,6 +39,9 @@ In addition, the generated Fortran codes need to be compiled, for example with [
 
 ## Codes description
 
+The model is defined first in the `model_definition.py` module, using the LayerCake syntax.
+This module is then imported in various scripts:
+
 ### `generate_fortran_code.py`
 
 Upon running
