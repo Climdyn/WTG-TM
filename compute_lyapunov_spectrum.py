@@ -22,7 +22,7 @@ if __name__ == "__main__":
 
     print('Creating the model...')
     # constructing the model
-    model_definition = define_model(2, 2)
+    model_definition = define_model(2, 2, chi=0.07)
 
     # computing the tensor (might take a long time depending on the resolution
     model_definition.compute_tensor(numerical=True, compute_inner_products=True)
@@ -61,6 +61,7 @@ if __name__ == "__main__":
     plt.xlabel('time [day]')
     plt.ylabel('trajectories')
 
+    # Lyapunov exponents
     plt.figure(figsize=(15, 4))
 
     mean_exp = np.mean(bexp, axis=-1)*(24*3600)/27998

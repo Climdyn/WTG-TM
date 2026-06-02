@@ -25,7 +25,7 @@ if __name__ == "__main__":
 
     print('Creating the model...')
     # constructing the model
-    model_definition = define_model(2, 2)
+    model_definition = define_model(2, 2, chi=0.07)
 
     # computing the tensor (might take a long time depending on the resolution
     model_definition.compute_tensor(numerical=True, compute_inner_products=True)
@@ -51,7 +51,7 @@ if __name__ == "__main__":
     integrator.integrate(0., 20000., dt, ic=ic, write_steps=10)
     time, trajectory = integrator.get_trajectories()
     data = np.concatenate((27998 * time[np.newaxis, ...] / (24 * 3600), trajectory))
-    np.savetxt('WTG_TM_trajectory.dat', data.T)
+    np.savetxt('evol_field.dat', data.T)
     print('Done.')
 
     if video:
