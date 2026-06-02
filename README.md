@@ -24,6 +24,11 @@ resources.
 
 ## Installation
 
+Installing the scripts can be done using git:
+```bash
+git clone https://github.com/Climdyn/WTG-TM.git && cd WTG-TM
+```
+
 The code requires at least Python 3.10 and the [LayerCake](https://github.com/Climdyn/LayerCake) framework.
 In addition, the [qgs model](https://github.com/Climdyn/qgs) integrators and Lyapunov estimators are also used.
 To install LayerCake and qgs, the simplest way is to use [pip](https://pypi.org/).
@@ -83,6 +88,6 @@ changed by editing the `model_definition.py` module.
 
 This script computes and plots the Lyapunov spectrum, using the qgs integrators.
 By default, it will compute this for the model truncated at wavenumber 2, but this can be changed by editing
-the script. The the forcing $\chi$ of the model can also be changed this way.
+the script. The forcing $\chi$ of the model can also be changed this way.
 More general model parameters can be changed by editing the `model_definition.py` module.
 
