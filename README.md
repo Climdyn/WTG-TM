@@ -42,6 +42,8 @@ pip install qgs
 and you are set.
 In addition, the generated Fortran codes need to be compiled, for example with [GNU Fortran](https://gcc.gnu.org/fortran/).
 
+Finally, the generation of the movies requires the separate installation of [FFmpeg](https://ffmpeg.org/).
+
 ## Codes description
 
 The model is defined first in the `model_definition.py` module, using the LayerCake syntax.
