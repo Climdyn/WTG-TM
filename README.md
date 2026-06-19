@@ -1,5 +1,7 @@
 # WTG-TM: The Weak Temperature Gradient forced Tropical Model
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20760508.svg)](https://doi.org/10.5281/zenodo.20760508)
+
 ## About ##
 
 (c) 2026 RMIB - Climdyn - Dynamical Meteorology and Climatology
@@ -21,6 +23,8 @@ your paper to <jonathan.demaeyer@meteo.be> and
 Consult the WTG-TM [code repository](http://www.github.com/Climdyn/WTG-TM)
 for updates, and [our website](http://climdyn.meteo.be) for additional
 resources.
+
+![](https://github.com/Climdyn/WTG-TM/blob/main/misc/velocity_with_Xi_isolines_300snapshots_every5_n020_x10016_x40016-4x4.gif?raw=true)
 
 ## Installation
 
