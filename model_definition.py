@@ -20,6 +20,7 @@ from layercake.basis.centered_planar_fourier import contiguous_channel_basis
 from layercake.inner_products.definition import StandardSymbolicInnerProductDefinition
 from layercake.arithmetic.terms.gradient import vorticity_gradients_product
 from layercake.arithmetic.terms.operations import ProductOfTerms
+from layercake.arithmetic.terms.operators import OperatorTerm, ComposedOperatorsTerm
 
 
 def define_model(nx, ny, chi=0.07):
@@ -89,6 +90,10 @@ def define_model(nx, ny, chi=0.07):
     # time units
     T = Parameter(1./np.sqrt(beta * c), symbol=Symbol('T'), units='[s]')
 
+    # inverse of timescale for Laplacian to power 2 (nabla^4)
+    T4 = Parameter(6 * 24 * 3600, symbol=Symbol('T_4'), units='[s]')
+    iT4 = Parameter(T / T4, symbol=Symbol('T_4^{-1}'))
+
     # nondimensional bottom friction
     # rp_symbol = Symbol("r'")
     rp_symbol = Symbol("r")
@@ -128,6 +133,12 @@ def define_model(nx, ny, chi=0.07):
     # adding the friction with the ground
     friction = OperatorTerm(psi, Laplacian, atmospheric_basis.coordinate_system, prefactor=rp, sign=-1)
     tropical_equation.add_rhs_term(friction)
+
+    # Adding power 2 of Laplacian (nabla^4) dissipation
+    operators = (Laplacian,) * 2
+    operators_args = (atmospheric_basis.coordinate_system,) * 2
+    lap2 = ComposedOperatorsTerm(psi, operators, operators_args, prefactor=iT4)
+    tropical_equation.add_rhs_term(lap2)
 
     # forcing
     vorticity_gradients = vorticity_gradients_product(chi, psi, atmospheric_basis.coordinate_system, sign=-1)
