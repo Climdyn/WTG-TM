@@ -91,7 +91,7 @@ def define_model(nx, ny, chi=0.07):
     T = Parameter(1./np.sqrt(beta * c), symbol=Symbol('T'), units='[s]')
 
     # inverse of timescale for Laplacian to power 2 (nabla^4)
-    T4 = Parameter(6 * 24 * 3600, symbol=Symbol('T_4'), units='[s]')
+    T4 = Parameter(3 * 24 * 3600, symbol=Symbol('T_4'), units='[s]')
     iT4 = Parameter(T / T4, symbol=Symbol('T_4^{-1}'))
 
     # nondimensional bottom friction
