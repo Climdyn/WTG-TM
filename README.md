@@ -10,8 +10,7 @@ See LICENSE for license information.
 
 This software is provided as supplementary material with:
 
-* Vannitsem, S., and Demaeyer, J.: Emergence of chaos in the tropical atmosphere: Study of the Weak Temperature 
-Gradient system. Submitted to Nonlinear Processes in Geophysics.
+* Vannitsem, S. and Demaeyer, J.: Emergence of chaos in the tropical atmosphere: Study of the weak temperature gradient system, EGUsphere [preprint], https://doi.org/10.5194/egusphere-2026-3631
 
 **Please cite this article if you use (a part of) this software for a
 publication.**
